@@ -126,8 +126,6 @@ Suitable for making quick changes to pricing across an entire track archive.
 
 This project is designed for practicing and improving SQL Server skills using the real-world **Chinook** database.
 
----
-
 ## ⚡️ Usage — How to Install & Use the Chinook Database
 
 ### 🎧 Download the Chinook Database
@@ -140,8 +138,6 @@ This project is designed for practicing and improving SQL Server skills using th
 ```bash
 git clone https://github.com/lerocha/chinook-database.git
 ```
-
----
 
 ### 🗄️ Installing Chinook Database on SQL Server
 
@@ -166,15 +162,12 @@ USE [Chinook];
 4. Once the database is created, select all content of the `.sql` script and execute it.  
 If the script runs successfully, the `Chinook` database will be ready on your SQL Server instance.
 
----
 
 ### 🧠 Notes
 
 - Chinook is a lightweight sample database designed for training and testing.
 - The database simulates a digital music store with tables for Customers, Invoices, Tracks, Albums, Artists, and more.
 - Perfect for practicing SQL concepts like `SELECT`, `JOIN`, `GROUP BY`, `Stored Procedures`, `Views`, `Functions`, `Triggers` and advanced querying.
-
----
 
 ✅ Once the database is set up, you can follow the exercises, views, stored procedures, and advanced examples provided in this repository.
 
