@@ -75,8 +75,41 @@ it is invaluable for analyzing the international market and identifying top-sell
 
 ## ⚙️ Stored Procedures
 
+### 1️⃣ Usp_GetCustomerInvoices
+Display a list of invoices for a specific customer based on CustomerId.
+Suitable for displaying customer purchase history
 
+### 2️⃣ Usp_GetInvoicesByDateRange
+Display all invoices issued within a specified time period.
+Suitable for periodic financial reports
 
+### 3️⃣ Usp_GetTopSellingTracks
+Report the total number of sales per track along with the total sales amount.
+Suitable for analyzing the most popular music tracks
+
+### 4️⃣ Usp_GetCustomerPurchaseSummary
+A customer's purchase summary including invoice number and total payment amount.
+Suitable for generating customer activity summary reports
+
+### 5️⃣ Usp_InsertNewInvoiceWithLines
+Create a new invoice with multiple InvoiceLines in one secure transaction.
+Suitable for creating complete orders and preventing incomplete data storage.
+
+### 6️⃣ Usp_CreateInvoiceWithTracks
+This Stored Procedure is responsible for creating a new invoice with the tracks that are purchased at that moment.
+All operations are performed in a single transaction so that if something goes wrong, incomplete information is not recorded.
+
+### 7️⃣ Usp_SafeDeleteCustomer
+Safe customer deletion; if the customer has a registered invoice, deletion is not allowed.
+Suitable for preventing accidental deletion of active customers.
+
+### 8️⃣ Usp_CheckSalesAndNotify
+Check the sales of a track and display a warning message if sales are below a specified amount.
+Suitable for controlling the quality of sales and monitoring low-selling tracks.
+
+### 9️⃣ Usp_UpdateTrackPrices
+Update music track prices based on a percentage increase or decrease sent as input.
+Suitable for making quick changes to pricing across an entire track archive.
 
 ---
 
