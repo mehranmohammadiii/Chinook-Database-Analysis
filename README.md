@@ -178,12 +178,11 @@ If the script runs successfully, the `Chinook` database will be ready on your SQ
 
 ✅ Once the database is set up, you can follow the exercises, views, stored procedures, and advanced examples provided in this repository.
 
-
-
-
 ---
 
 ## 👨‍💻 Author
+Created by mehranmohammadiii
+• [GitHub](https://github.com/mehranmohammadiii)   • [LinkedIn](www.linkedin.com/in/mehran-mohammadi-ceo) 
 
 
 
