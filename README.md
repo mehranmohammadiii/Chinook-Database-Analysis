@@ -115,8 +115,35 @@ Suitable for making quick changes to pricing across an entire track archive.
 
 ## 🔧 Functions
 
+### 1️⃣ Svf_GetFullCustomerName
+Return the full name of a customer (FirstName + LastName) using CustomerId.
 
+### 2️⃣ Svf_CalculateDiscountAmount
+Calculate the final amount after applying a discount percentage to an input amount.
 
+### 3️⃣ Svf_GetInvoiceTotalByCustomer
+Calculate the total total payments made by a specific customer.
+
+### 4️⃣ Svf_GetTrackDurationInMinutes
+Dial the duration of the music track from milliseconds to minutes with decimal accuracy.
+
+### 5️⃣ Svf_GetCountrySalesCount
+Calculate the total number of sales made in each country dynamically.
+
+### 6️⃣ Tvf_GetInvoicesByCountry
+Display a list of all registered invoices for a specific country.
+
+### 7️⃣ Tvf_GetCustomerInvoices
+Display all invoices registered for a specific customer based on CustomerId.
+
+### 8️⃣ Tvf_GetTracksByGenre
+Return a list of music tracks based on the given GenreId.
+
+### 9️⃣ Tvf_GetTopSellingTracks
+Return a list of the best-selling tracks in the entire database.
+
+### 🔟 Tvf_GetCustomerPurchaseHistory
+Display a customer's purchase history, including invoices and the total of each purchase.
 
 ---
 
