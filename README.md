@@ -200,6 +200,20 @@ If the script runs successfully, the `Chinook` database will be ready on your SQ
 
 ---
 
+## 🤝 Contribution
+
+Pull requests are welcome!  
+If you have ideas for new examples or better solutions, feel free to contribute.
+
+---
+
+## ⭐ Support
+
+If this project helped you, please consider giving it a ⭐ on GitHub!  
+If you have questions or suggestions, open an issue — I’ll be happy to help!
+
+---
+
 ## 👨‍💻 Author
 Created by mehranmohammadiii
 • [GitHub](https://github.com/mehranmohammadiii)   • [LinkedIn](www.linkedin.com/in/mehran-mohammadi-ceo) 
