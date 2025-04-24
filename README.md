@@ -146,6 +146,27 @@ Return a list of the best-selling tracks in the entire database.
 Display a customer's purchase history, including invoices and the total of each purchase.
 
 ---
+## 💡 Triggers
+
+### 1️⃣ Trg_AI_InvoiceLog
+Logs newly inserted invoices into a separate audit table for tracking.
+
+### 2️⃣ Trg_ID_PreventDeleteMainCustomer
+Preventing the deletion of a specific customer in the system.
+
+### 3️⃣ Trg_AU_EnforceMinimumTrackPrice
+Automatic control of the price of the trucks if it is below the allowed limit.
+
+### 4️⃣ Trg_AU_TrackPriceAudit
+Record the date of changes in the price of turkeys in another table
+
+### 5️⃣ Trg_AIDU_InvoiceAuditLog
+This trigger stores the details in the AuditLog table whenever a record is added, deleted, or changed in an important table (e.g. Invoice).
+
+### 6️⃣ Trg_AI_PreventDuplicateInvoice
+If an invoice is registered for a customer with the same date, the trigger will prevent this.
+
+---
 
 ## 🧪 Usage
 
@@ -197,6 +218,20 @@ If the script runs successfully, the `Chinook` database will be ready on your SQ
 - Perfect for practicing SQL concepts like `SELECT`, `JOIN`, `GROUP BY`, `Stored Procedures`, `Views`, `Functions`, `Triggers` and advanced querying.
 
 ✅ Once the database is set up, you can follow the exercises, views, stored procedures, and advanced examples provided in this repository.
+
+---
+
+## 🤝 Contribution
+
+Pull requests are welcome!  
+If you have ideas for new examples or better solutions, feel free to contribute.
+
+---
+
+## ⭐ Support
+
+If this project helped you, please consider giving it a ⭐ on GitHub!  
+If you have questions or suggestions, open an issue — I’ll be happy to help!
 
 ---
 
