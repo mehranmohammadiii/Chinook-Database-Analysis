@@ -456,3 +456,146 @@ GO
 select *
 from dbo.Tvf_GetCustomerPurchaseHistory(46)
 GO
+----------------------------------------------------------------------------------------------------------------------
+--Triggers
+Create Table LogTable(
+	LogId int primary key identity(1,1),
+	TableName varchar(100),
+	CmdType nvarchar(100),            --Insert , Delete, Update(Insert,Delete)
+	KeyId int,						  -- شماره رکورد تغییر شده
+	RegisterDate datetime2,
+	FieldValue nvarchar(100)          -- نام ستون تغییر شده
+)
+GO
+create trigger Trg_AI_InvoiceLog
+on invoice
+after insert
+AS
+BEGIN
+	declare @InvoiceID int
+	select @InvoiceID= inserted.InvoiceId
+	from inserted
+	insert into LogTable (TableName,CmdType,KeyId,RegisterDate,FieldValue)
+				values ('Invoice','Insert',@InvoiceID,GETDATE(),null)
+	Print('Insertion done')
+END
+GO
+Insert into Invoice(InvoiceId,CustomerId,InvoiceDate,Total)
+			values (418,59,GETDATE(),5)
+GO
+select * 
+from LogTable
+GO
+
+CREATE TRIGGER Trg_ID_PreventDeleteMainCustomer
+ON Customer
+INSTEAD OF DELETE
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM DELETED WHERE CustomerId = 1)
+    BEGIN
+        Print('Special people cannot be deleted.')
+        ROLLBACK TRANSACTION;
+    END
+    ELSE
+    BEGIN
+        DELETE FROM Customer WHERE CustomerId IN (SELECT CustomerId FROM DELETED)
+    END
+END
+GO
+
+CREATE TRIGGER Trg_AU_EnforceMinimumTrackPrice
+ON Track
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Track
+    SET UnitPrice = 0.99
+	from Track inner join inserted
+	on Track.UnitPrice=inserted.UnitPrice
+	where inserted.UnitPrice<0.99
+END
+GO
+
+CREATE TABLE TrackPriceHistory (
+    HistoryId INT IDENTITY(1,1) PRIMARY KEY,
+    TrackId INT,
+    OldPrice DECIMAL(10,2),
+    NewPrice DECIMAL(10,2),
+    ChangeDate DATETIME DEFAULT GETDATE()
+)
+GO
+CREATE TRIGGER Trg_AU_TrackPriceAudit
+ON Track
+AFTER UPDATE
+AS
+BEGIN
+	insert into TrackPriceHistory(TrackId,OldPrice,NewPrice)
+	select inserted.TrackId,DELETED.UnitPrice,inserted.UnitPrice
+	from inserted inner join DELETED
+	on inserted.TrackId=DELETED.TrackId
+	where inserted.UnitPrice <> DELETED.UnitPrice
+
+	--declare @TrackId int
+	--declare @OldPrice DECIMAL(10,2)
+	--declare @NewPrice DECIMAL(10,2)
+
+	--select @TrackId=inserted.TrackId,@OldPrice=DELETED.UnitPrice,@NewPrice=inserted.UnitPrice
+	--from inserted inner join DELETED
+	--on inserted.TrackId=DELETED.TrackId
+	--where inserted.UnitPrice <> DELETED.UnitPrice
+
+	--insert into TrackPriceHistory(TrackId,OldPrice,NewPrice)
+	--values (@TrackId,@OldPrice,@NewPrice)
+END
+GO
+
+Create trigger Trg_AIDU_InvoiceAuditLog
+ON invoice
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+	SET NOCOUNT ON
+	IF EXISTS (select 1 from inserted) AND EXISTS (select 1 from deleted)
+		BEGIN
+			declare @InvoiceID int
+			select @InvoiceID=inserted.InvoiceId from inserted
+			insert into LogTable (TableName,CmdType,KeyId,RegisterDate,FieldValue)
+				values ('Invoice','UPDATE',@InvoiceID,GETDATE(),NULL)
+		END
+	ELSE IF EXISTS (select 1 from inserted)
+		BEGIN
+			declare @InvoiceID1 int
+			select @InvoiceID1=inserted.InvoiceId from inserted
+			insert into LogTable (TableName,CmdType,KeyId,RegisterDate,FieldValue)
+				values ('Invoice','INSERT',@InvoiceID1,GETDATE(),NULL)
+		END
+	ELSE
+		BEGIN	
+			declare @InvoiceID2 int
+			select @InvoiceID2=deleted.InvoiceId from deleted
+			insert into LogTable (TableName,CmdType,KeyId,RegisterDate,FieldValue)
+				values ('Invoice','DELETE',@InvoiceID2,GETDATE(),NULL)
+		END
+END
+GO
+
+CREATE TRIGGER Trg_AI_PreventDuplicateInvoice
+ON Invoice
+AFTER INSERT
+AS
+BEGIN
+	IF EXISTS (
+		select inserted.CustomerId,inserted.InvoiceDate
+		from inserted inner join Invoice
+		on inserted.CustomerId=Invoice.CustomerId AND
+		DATEDIFF(DAY,inserted.InvoiceDate,Invoice.InvoiceDate)=0 AND
+		inserted.InvoiceId <> Invoice.InvoiceId
+					)
+		BEGIN
+			print('It is not allowed for a customer to register two invoices on a given date.')
+			ROLLBACK TRAN
+		END
+END
+GO
+---------------------------------------------------------------------------------------------------------------------
