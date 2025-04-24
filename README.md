@@ -146,6 +146,27 @@ Return a list of the best-selling tracks in the entire database.
 Display a customer's purchase history, including invoices and the total of each purchase.
 
 ---
+## 💡 Trigger
+
+### 1️⃣ Trg_AI_InvoiceLog
+Logs newly inserted invoices into a separate audit table for tracking.
+
+### 2️⃣ Trg_ID_PreventDeleteMainCustomer
+Preventing the deletion of a specific customer in the system.
+
+### 3️⃣ Trg_AU_EnforceMinimumTrackPrice
+Automatic control of the price of the trucks if it is below the allowed limit.
+
+### 4️⃣ Trg_AU_TrackPriceAudit
+Record the date of changes in the price of turkeys in another table
+
+### 5️⃣ Trg_AIDU_InvoiceAuditLog
+This trigger stores the details in the AuditLog table whenever a record is added, deleted, or changed in an important table (e.g. Invoice).
+
+### 6️⃣ Trg_AI_PreventDuplicateInvoice
+If an invoice is registered for a customer with the same date, the trigger will prevent this.
+
+---
 
 ## 🧪 Usage
 
