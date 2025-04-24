@@ -146,7 +146,7 @@ Return a list of the best-selling tracks in the entire database.
 Display a customer's purchase history, including invoices and the total of each purchase.
 
 ---
-## 💡 Trigger
+## 💡 Triggers
 
 ### 1️⃣ Trg_AI_InvoiceLog
 Logs newly inserted invoices into a separate audit table for tracking.
